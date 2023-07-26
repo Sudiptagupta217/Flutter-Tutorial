@@ -21,7 +21,7 @@ class MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             ElevatedButton(onPressed: ()async{
-              int i = await DatabaseHelper.instance.insert({
+              int? i = await DatabaseHelper.instance.insert({
                 DatabaseHelper.columnName:"india"
               });
               print('the insert id is $i');
