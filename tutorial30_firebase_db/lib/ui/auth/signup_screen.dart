@@ -10,16 +10,16 @@ class SignUpScreen extends StatefulWidget {
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
-
 class _SignUpScreenState extends State<SignUpScreen> {
 
-  final _formKey = GlobalKey<FormState>();
+  bool loading = false;
 
+  final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
 
-  FirebaseAuth _auth =FirebaseAuth.instance;
+  FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void dispose() {
@@ -88,15 +88,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
               RoundButton(
                 title: "SignUp",
+                loading: loading,
                 onTap: (){
                   if(_formKey.currentState!.validate()){
-                    _auth.createUserWithEmailAndPassword(
-                        email: emailController.text.toString(),
-                        password: passwordController.text.toString()).then((value) {
-
-                    }).onError((error, stackTrace) {
-                     Utils().toastMessage(error.toString());
-                    });
+                   signUp();
                   }
                 },
               ),
@@ -115,5 +110,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ],),
         )
     );
+  }
+
+  void signUp(){
+    setState((){
+      loading = true;
+    });
+    _auth.createUserWithEmailAndPassword(
+        email: emailController.text.toString(),
+        password: passwordController.text.toString()).then((value) {
+      setState(() {
+        loading= false;
+      });
+    }).onError((error, stackTrace) {
+      Utils().toastMessage(error.toString());
+      setState(() {
+        loading=false;
+      });
+    });
   }
 }
