@@ -41,12 +41,15 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: (){
           dbHelper!.insert(
             NotesModel(
-              title: 'first note',
+              title: 'first note11',
               age: 22,
               description: "kj oa okao oa ooaj ao",
               email: "ah@gmaa.com"
             )
           ).then((value) {
+            setState(() {
+              notesList=dbHelper!.getNotesList();
+            });
             print("data added");
           }).onError((error, stackTrace) {
             print(error.toString());
@@ -57,22 +60,68 @@ class _HomeScreenState extends State<HomeScreen> {
 
       body: Column(
           children: [
-            FutureBuilder(
-              future: notesList,
-              builder: (context, AsyncSnapshot<List<NotesModel>> snapshot) {
-                return
-                  ListView.builder(itemBuilder: (context, index) {
-                    return
-                      Card(child:
-                      ListTile(
-                        contentPadding: EdgeInsets.all(0),
-                        title: Text(snapshot.data![index].title.toString()),
-                      ),
-                      );
-                  },
-                  );
-              }
-          )
+            Expanded(
+              child: FutureBuilder(
+                future: notesList,
+                builder: (context, AsyncSnapshot<List<NotesModel>> snapshot) {
+                if(snapshot.hasData){
+
+                  return
+                    ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      shrinkWrap: true,
+                      reverse: false,
+                      itemBuilder: (context, index) {
+                        return
+                          InkWell(
+                            onTap: () {
+                              dbHelper!.update(
+                                  NotesModel(
+                                      id: snapshot.data![index].id!,
+                                      title: "title",
+                                      email: "email",
+                                      age: 55,
+                                      description: "description")
+                              );
+                              setState(() {
+                                notesList=dbHelper!.getNotesList();
+                              });
+                            },
+                            child: Dismissible(
+                              direction: DismissDirection.endToStart,
+                              background: Container(
+                                child: Icon(Icons.delete_forever),
+                                color: Colors.red,
+                              ),
+                              onDismissed: (direction) {
+                                setState(() {
+                                  dbHelper!.delete(snapshot.data![index].id!);
+                                  notesList=dbHelper!.getNotesList();
+                                  snapshot.data!.remove(snapshot.data![index]);
+
+                                });
+                              },
+
+                              key: ValueKey<int>(snapshot.data![index].id!),
+                              child: Card(child:
+                              ListTile(
+                               // contentPadding: EdgeInsets.all(0),
+                                title: Text(snapshot.data![index].title.toString()),
+                                subtitle: Text(snapshot.data![index].description.toString()),
+                                trailing: Text(snapshot.data![index].age.toString()),
+                              ),
+                              ),
+                            ),
+                          );
+                      },
+                    );
+                }else{
+                  return CircularProgressIndicator();
+                }
+
+                }
+          ),
+            )
               ])
               );
   }
