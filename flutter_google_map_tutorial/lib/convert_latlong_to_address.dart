@@ -21,9 +21,17 @@ class _ConvertLatLongToAddressState extends State<ConvertLatLongToAddress> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          //get address-> lat long to address
+
           GestureDetector(
             onTap:() async{
+
+              // address to lat lng
+              final query = "A/17A/17, Nirmal Sen Gupta Sarani Rd, Milan Pally, Motilal Colony, Rajbari, Dum Dum, Kolkata, West Bengal 700079, India";
+              var addresses = await Geocoder.local.findAddressesFromQuery(query);
+              var second = addresses.first;
+              print("lat&lng : ${second.featureName} : ${second.coordinates}");
+
+              // lat lang to address
               final coodinates = new Coordinates(22.647051 ,88.431686);
               var address = await Geocoder.local.findAddressesFromCoordinates(coodinates);
               var first = address.first;
