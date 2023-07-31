@@ -1,10 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <!--add this permission-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
     <application
         android:label="flutter_google_map_tutorial"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
-
+        <!--add this line with value of key-->
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyACgCDW23DkmkS2JmxGX6eu3tLyVAP5w7s"/>
 

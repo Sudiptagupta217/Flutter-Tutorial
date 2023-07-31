@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_geocoder/geocoder.dart';
+import 'package:geocoding/geocoding.dart';
 
 class ConvertLatLongToAddress extends StatefulWidget {
   const ConvertLatLongToAddress({super.key});
@@ -9,6 +9,10 @@ class ConvertLatLongToAddress extends StatefulWidget {
 }
 
 class _ConvertLatLongToAddressState extends State<ConvertLatLongToAddress> {
+
+  String stAddress='';
+  String stLatLng='';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,26 +20,29 @@ class _ConvertLatLongToAddressState extends State<ConvertLatLongToAddress> {
         title: Text("Google Map"),
         centerTitle: true,
       ),
-
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
 
+          Text(stAddress,style: TextStyle(fontSize: 20),),
+          Text(stLatLng,style: TextStyle(fontSize: 20),),
+
           GestureDetector(
             onTap:() async{
 
               // address to lat lng
-              final query = "A/17A/17, Nirmal Sen Gupta Sarani Rd, Milan Pally, Motilal Colony, Rajbari, Dum Dum, Kolkata, West Bengal 700079, India";
-              var addresses = await Geocoder.local.findAddressesFromQuery(query);
-              var second = addresses.first;
-              print("lat&lng : ${second.featureName} : ${second.coordinates}");
+              List<Location> locations = await locationFromAddress("A/17A/17, Nirmal Sen Gupta Sarani Rd, Milan Pally, Motilal Colony, Rajbari, Dum Dum, Kolkata, West Bengal 700079, India");
+
 
               // lat lang to address
-              final coodinates = new Coordinates(22.647051 ,88.431686);
-              var address = await Geocoder.local.findAddressesFromCoordinates(coodinates);
-              var first = address.first;
-              print("Address : "+first.featureName.toString() + first.addressLine.toString());
+              List<Placemark> placemarks = await placemarkFromCoordinates(22.647051 ,88.431686);
+
+             setState(() {
+               stLatLng = "${locations.last.longitude} ${locations.last.latitude}";
+               stAddress = "${placemarks.reversed.last.country} -- ${placemarks.reversed.last.locality} -- ${placemarks.reversed.last.name}-- ${placemarks.reversed.first.street}";
+             });
+
             },
 
             child: Padding(
@@ -51,6 +58,7 @@ class _ConvertLatLongToAddressState extends State<ConvertLatLongToAddress> {
               ),
             ),
           )
+
         ],
       ),
     );
