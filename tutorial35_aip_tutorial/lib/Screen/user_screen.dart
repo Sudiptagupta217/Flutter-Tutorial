@@ -53,10 +53,10 @@ class _UserScreenState extends State<UserScreen> {
                       Text(snapshot.data![index].name.toString()),
                       Text(snapshot.data![index].email.toString()),
                       Text(snapshot.data![index].username.toString()),
-                      Text(
-                              "City is "+snapshot.data![index].address!.city.toString()+
-                              "\n zipcode is"+snapshot.data![index].address!.zipcode.toString()+
-                          "\n lat lng is "+snapshot.data![index].address!.geo!.lat.toString()+" and "+snapshot.data![index].address!.geo!.lng.toString()
+                      Text("City is ${snapshot.data![index].address!.city}\n "
+                          "zipcode is${snapshot.data![index].address!.zipcode}\n "
+                          "lat lng is ${snapshot.data![index].address!.geo!.lat}"
+                          " and ${snapshot.data![index].address!.geo!.lng}"
 
                       ),
                     ],
