@@ -16,11 +16,23 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     notificationServices.requestNotificationPermission();
+    //notificationServices.isTokenRefresh();
+    notificationServices.firebaseInit();
+
+    notificationServices.getDeviceToken().then((value) {
+      print('device token');
+      print(value);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       body: Container(
+         color: Colors.green,
+         height: 100,
+         width: 40,
+       ),
 
     );
   }
