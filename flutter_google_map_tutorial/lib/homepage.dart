@@ -17,7 +17,7 @@ class HomePageState extends State<HomePage>{
   zoom: 14.4746);
 
 
-List<Marker> _marker =[];
+final List<Marker>  _marker =[];
 final List<Marker> _list = const[
   Marker (
       markerId: MarkerId( '1'),

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_notification/notification_services.dart';
 
@@ -17,12 +20,13 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     notificationServices.requestNotificationPermission();
     //notificationServices.isTokenRefresh();
-    notificationServices.firebaseInit();
-
+    notificationServices.firebaseInit(context);
+    notificationServices.setupInterectMessage(context);
     notificationServices.getDeviceToken().then((value) {
       print('device token');
       print(value);
     });
+
   }
 
   @override

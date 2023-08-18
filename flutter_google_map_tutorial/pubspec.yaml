@@ -37,7 +37,8 @@ dependencies:
 #  flutter_geocoder: ^0.2.2-nullsafety
   geocoding: ^2.1.0
   geolocator: ^9.0.2
-
+  http:
+  uuid: ^3.0.5
 
 dev_dependencies:
   flutter_test:
