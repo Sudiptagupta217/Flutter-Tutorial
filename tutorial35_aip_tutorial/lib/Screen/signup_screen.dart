@@ -15,12 +15,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+   String BASE_URL = "https://reqres.in/";
 
   //signup method create   and signup and login method are same just change the url and required value
   void signUp(String email, password) async{
     try{
       Response response =await post(
-        Uri.parse("https://reqres.in/api/register"),
+        Uri.parse(BASE_URL+"api/register"),
         body: {
           'email':email,
           'password':password

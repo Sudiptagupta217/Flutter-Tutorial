@@ -24,6 +24,7 @@ class _CountExampleState extends State<CountExample> {
       countProvider.setCount();
     });
   }
+
   @override
   Widget build(BuildContext context) {
     final countProvider = Provider.of<CountProvider>(context, listen: false);

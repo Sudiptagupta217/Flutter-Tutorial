@@ -50,8 +50,6 @@ class MyApp extends StatelessWidget {
             home:   LoginScreen(),
           );
         },)
-
-
     );
     // return MaterialApp(
     //   title: 'Flutter Demo',
