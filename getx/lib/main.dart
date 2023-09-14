@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx/api_page.dart';
 import 'package:getx/language.dart';
 import 'package:getx/language_calss.dart';
 
+import 'color_opacity.dart';
 import 'counter_statemanagement.dart';
 import 'mediaquery.dart';
 
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const CounterStateManagement(),
+      home: const ApiPage(),
     );
   }
 }
