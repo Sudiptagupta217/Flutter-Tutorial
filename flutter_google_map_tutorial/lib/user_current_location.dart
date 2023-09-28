@@ -67,7 +67,7 @@ return await Geolocator.getCurrentPosition();
            );
 
            CameraPosition cameraPosition = CameraPosition(
-             zoom: 14,
+               zoom: 14,
                target:LatLng(value.latitude, value.longitude));
 
            final GoogleMapController controller = await _controller.future;
